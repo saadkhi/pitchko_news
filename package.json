@@ -1,0 +1,25 @@
+{
+  "name": "pitchko-news",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm start",
+    "lint": "cd frontend && npm run lint",
+    "db:generate": "cd frontend && npx prisma generate",
+    "db:push": "cd frontend && npx prisma db push",
+    "db:studio": "cd frontend && npx prisma studio",
+    "db:seed": "cd frontend && npx prisma db seed"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1",
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.1"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} frontend/prisma/seed.ts"
+  }
+}

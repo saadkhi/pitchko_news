@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model News {
+  id              Int      @id @default(autoincrement())
+  title           String
+  summary         String
+  content         String?
+  category        String
+  impactLevel     String   @default("medium")
+  credibilityScore Float   @default(0.0)
+  publishedAt     DateTime @default(now())
+  url             String?
+  imageUrl        String?
+  source          String?
+  tags            String   // JSON string of tags
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  videos          Video[]
+
+  @@map("news")
+}
+
+model Video {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  url         String
+  thumbnailUrl String?
+  duration    String?
+  status      String   @default("processing") // processing, ready, failed
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  newsId      Int?
+  news        News?    @relation(fields: [newsId], references: [id])
+
+  @@map("videos")
+}
+
+model Trend {
+  id          Int      @id @default(autoincrement())
+  topic       String
+  count       Int      @default(0)
+  sentiment   String   @default("neutral") // positive, negative, neutral
+  lastUpdated DateTime @default(now())
+
+  @@map("trends")
+}
+
+model AgentRun {
+  id          Int      @id @default(autoincrement())
+  agentType   String   // collector, summarizer, credibility, etc.
+  status      String   @default("running") // running, completed, failed
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  result      String?  // JSON result
+  error       String?
+
+  @@map("agent_runs")
+}

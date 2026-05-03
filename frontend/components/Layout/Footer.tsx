@@ -5,11 +5,13 @@ import {
   NewspaperIcon, 
   PlayIcon, 
   ChartBarIcon,
-  EnvelopeIcon,
+  EnvelopeIcon
+} from '@heroicons/react/24/outline';
+import { 
   TwitterIcon,
   LinkedinIcon,
   GithubIcon
-} from '@heroicons/react/24/outline';
+} from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
