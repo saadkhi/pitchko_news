@@ -13,11 +13,16 @@ load_dotenv()
 class BaseAgent(ABC):
     def __init__(self, name: str):
         self.name = name
-        self.llm = ChatOpenAI(
-            model="gpt-4",
-            temperature=0.1,
-            openai_api_key=os.getenv("OPENAI_API_KEY")
-        )
+        api_key = os.getenv("OPENAI_API_KEY")
+        if api_key:
+            self.llm = ChatOpenAI(
+                model="gpt-4",
+                temperature=0.1,
+                openai_api_key=api_key
+            )
+        else:
+            self.llm = None
+            print(f"Warning: OPENAI_API_KEY not found. {self.name} will not be able to use LLM features.")
         self.logger = logging.getLogger(f"agent.{name}")
         
     @abstractmethod
@@ -33,6 +38,9 @@ class BaseAgent(ABC):
     
     async def call_llm(self, messages: List[Dict[str, str]], max_tokens: int = 1000) -> str:
         """Call the LLM with messages"""
+        if not self.llm:
+            raise ValueError(f"LLM not available for {self.name}. Please set OPENAI_API_KEY environment variable.")
+        
         try:
             langchain_messages = []
             for msg in messages:

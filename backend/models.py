@@ -100,7 +100,7 @@ class ProcessingJob(Base):
     started_at = Column(DateTime)
     completed_at = Column(DateTime)
     error_message = Column(Text)
-    metadata = Column(JSON)
+    job_metadata = Column(JSON)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 class Trend(Base):

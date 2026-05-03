@@ -15,8 +15,6 @@ from services.news_service import NewsService
 from services.video_service import VideoService
 from scheduler import NewsScheduler
 
-# Database tables
-Base.metadata.create_all(bind=engine)
 
 # Initialize services
 orchestrator = AgentOrchestrator()
@@ -29,7 +27,12 @@ security = HTTPBearer()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    scheduler.start()
+    try:
+        # Create database tables
+        Base.metadata.create_all(bind=engine)
+        scheduler.start()
+    except Exception as e:
+        print(f"Startup error: {e}")
     yield
     # Shutdown
     scheduler.stop()

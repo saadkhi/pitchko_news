@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: ['localhost', 'your-vercel-domain.vercel.app', 'api.heygen.com', 'images.synthesia.io'],
   },

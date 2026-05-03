@@ -238,7 +238,7 @@ schedule==1.2.0
 scikit-learn==1.4.0
 scipy==1.16.1
 SecretStorage==3.3.3
-sentence-transformers==2.2.2
+sentence-transformers==2.3.1
 sentencepiece==0.2.1
 setuptools==68.1.2
 sgmllib3k==1.0.0
@@ -284,7 +284,6 @@ ubuntu-drivers-common==0.0.0
 ubuntu-pro-client==8001
 ufw==0.36.2
 unattended-upgrades==0.1
-unsloth @ git+https://github.com/unslothai/unsloth.git@e64c53a2dee9ba6368c90c6827f89a78f72bedf6
 unsloth_zoo==2025.11.5
 urllib3==2.0.7
 uuid_utils==0.14.0
